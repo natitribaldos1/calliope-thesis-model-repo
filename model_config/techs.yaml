@@ -1,1 +1,62 @@
 techs:
+
+  pv:
+    name: "Solar photovoltaic power rooftop"
+    color: "#F9D956"
+    base_tech: supply
+    carrier_out: electricity
+    source_unit: per_cap 
+    area_use_per_flow_cap: 7 #units = m2
+    flow_out_parasitic_eff: 1 
+    flow_cap_max: .inf
+    area_use_max: 840000 #units: m2
+    lifetime: 25
+
+    cost_flow_cap: # Monetary cost of installing a unit of 'flow_cap' 
+        data: 15000 # Unit: /KW peak 
+        index: monetary
+        dims: costs
+    
+    #This means electricity from PV can be exported.
+    carrier_export: electricity 
+    export_max: 1200 #Units: kW, size of the grid connection 
+    
+    # This is the feed-in tarrif revene 
+    cost_export:
+        data: 0   # example FIT: 1.50 MXN/kWh exported (Germany = 0.0595)
+        index: monetary
+        dims: costs
+  
+  demand_electricity:
+    name: "Electrical demand"
+    color: "#072486"
+    base_tech: demand
+    carrier_in: electricity
+  
+  battery:
+    name: "Battery storage"
+    color: "#3B61E3"
+    base_tech: storage
+    carrier_in: electricity
+    carrier_out: electricity
+    
+    flow_cap_max: .inf 
+    storage_cap_max: .inf 
+    
+    #flow_cap_per_storage_cap_max: 4
+    
+    flow_out_eff: 0.95
+    flow_in_eff: 0.95
+    
+    storage_loss: 0 
+    lifetime: 25 
+    
+    cost_flow_cap:
+      data: 4000 #Units: /kW 
+      index: monetary
+      dims: costs
+    
+    cost_storage_cap:
+      data: 6000 #Units: /kWh
+      index: monetary
+      dims: costs

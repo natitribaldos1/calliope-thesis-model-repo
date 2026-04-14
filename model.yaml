@@ -1,3 +1,49 @@
 import: # Import other files from paths relative to this file
   - "model_config/techs.yaml"
   - "model_config/locations.yaml"
+
+scenarios:
+
+overrides:
+
+config:
+  init:
+    name: "calliope_thesis_model" # Name of the model
+    calliope_version: 0.7.0 # What version of Calliope this model is intended for
+    subset:
+      timesteps: ["2019-01-01", "2019-12-31"] # Subset of timesteps   
+    mode: base # Choices: base, operate, spores
+  build:
+    ensure_feasibility: true # Switching on unmet demand
+    backend: gurobi
+  solve:
+    solver: gurobi
+    solver_io: python
+
+data_definitions:
+  objective_cost_weights:
+    data: [1, 0] #Weight = 1 means: objective = monetary cost
+    index: [monetary, co2]
+    dims: costs
+      
+  #This is a very large number used to penalize unmet demand. So the solver will almost never allow unmet demand, unless absolutely necessary.
+  bigM: 1e6 
+
+  cost_interest_rate:
+    data: 0.10 
+    index: monetary
+    dims: costs
+
+data_tables:
+  demand:
+    data: data_tables/demand.csv   #units = kW
+    rows: timesteps
+    columns: [techs, nodes]
+    add_dims:
+      parameters: sink_use_equals
+  pv_resource: 
+      data: data_tables/pv_resource.csv
+      rows: timesteps
+      add_dims:
+          parameters: source_use_max 
+          techs: pv

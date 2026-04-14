@@ -1,1 +1,7 @@
 nodes:
+  industrial_park:
+    techs:
+      pv:
+      battery:
+      demand_electricity:
+      #supply_grid_power:
