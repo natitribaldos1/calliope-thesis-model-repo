@@ -6,24 +6,35 @@ techs:
     base_tech: supply
     carrier_out: electricity
     source_unit: per_cap 
-    area_use_per_flow_cap: 7 #units = m2
-    flow_out_parasitic_eff: 1 
-    flow_cap_max: .inf
-    area_use_max: 840000 #units: m2
-    lifetime: 25
 
-    cost_flow_cap: # Monetary cost of installing a unit of 'flow_cap' 
-        data: 15000 # Unit: /KW peak 
+    #Assumed area per kWp
+    area_use_per_flow_cap: 7 #Units = m²/kWp
+
+    flow_out_parasitic_eff: 1 
+    
+    #Max PV build allowed (to avoid strictre laws)
+    flow_cap_max: 999 #Units: kWp
+
+    #Roofspace area
+    area_use_max: 7627 #Units: m²
+
+    #PV lifetime
+    lifetime: 25 #Units: years
+
+    #Rooftop PV CAPEX
+    cost_flow_cap: 
+        data: 700 #Units: €/kWp
         index: monetary
         dims: costs
     
     #This means electricity from PV can be exported.
     carrier_export: electricity 
-    export_max: 1200 #Units: kW, size of the grid connection 
+    #Grid connection limit
+    export_max: 165 #Units: kW 
     
-    # This is the feed-in tarrif revene 
+    #Feed-in tarriff 
     cost_export:
-        data: 0   # example FIT: 1.50 MXN/kWh exported (Germany = 0.0595)
+        data: 0.059  #Units: €/kWh
         index: monetary
         dims: costs
   
@@ -45,18 +56,49 @@ techs:
     
     #flow_cap_per_storage_cap_max: 4
     
+    #Battery discharge efficiency
     flow_out_eff: 0.95
+    #Battery charge efficiency
     flow_in_eff: 0.95
     
-    storage_loss: 0 
-    lifetime: 25 
+    #Battery standing losses
+    storage_loss: 0.01 #Units: fraction lost per hour 
+
+    #Battery lifetiem
+    lifetime: 20 #Units: years
     
+    #Battery power cost (25% of total battery cost)
     cost_flow_cap:
-      data: 4000 #Units: /kW 
+      data: 160 #Units: €/kW
       index: monetary
       dims: costs
     
+    #Battery energy cost (75% of total battery cost)
     cost_storage_cap:
-      data: 6000 #Units: /kWh
+      data: 230 #Units: €/kWh
+      index: monetary
+      dims: costs
+  
+  supply_grid_power:
+    name: "National grid import"
+    color: "#C5ABE3"
+    base_tech: supply
+    carrier_out: electricity
+    
+    #Unlimited energy can be drawn from the grid.
+    source_use_max: .inf
+    
+    #Grid connection limit
+    flow_cap_max: 165 #kW
+    
+    #lifetime: 25 #not needed because grid is existing infrastructure
+    #cost_flow_cap: #commented out because we assume all demand is already met with existing infrastructure
+        #data: 15
+        #index: monetary
+        #dims: costs
+
+    #Grid electricity price
+    cost_flow_in:
+      data: 0.32 #Units: €/kWh
       index: monetary
       dims: costs
