@@ -10,6 +10,7 @@ techs:
     #Assumed area per kWp
     area_use_per_flow_cap: 7 #Units = m²/kWp
 
+    #Set to 1 because the pv_resource data already accounts for system losses.
     flow_out_parasitic_eff: 1 
     
     #Max PV build allowed (to avoid strictre laws)
@@ -29,6 +30,7 @@ techs:
     
     #This means electricity from PV can be exported.
     carrier_export: electricity 
+
     #Grid connection limit
     export_max: 165 #Units: kW 
     
@@ -58,6 +60,7 @@ techs:
     
     #Battery discharge efficiency
     flow_out_eff: 0.95
+
     #Battery charge efficiency
     flow_in_eff: 0.95
     
@@ -85,7 +88,7 @@ techs:
     base_tech: supply
     carrier_out: electricity
     
-    #Unlimited energy can be drawn from the grid.
+    #Unlimited energy can be drawn from the grid
     source_use_max: .inf
     
     #Grid connection limit

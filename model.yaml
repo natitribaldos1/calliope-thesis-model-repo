@@ -37,7 +37,6 @@ data_definitions:
 data_tables:
   demand:
     #Includes both XX demand and EV demand
-    #Units: 
     data: data_tables/final_hourly_demand.csv   #units = kW
     rows: timesteps
     columns: [techs, nodes]
