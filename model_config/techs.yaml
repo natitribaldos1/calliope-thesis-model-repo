@@ -24,9 +24,9 @@ techs:
 
     #Rooftop PV CAPEX
     cost_flow_cap: 
-        data: 700 #Units: €/kWp
-        index: monetary
-        dims: costs
+      data: 700 #Units: €/kWp
+      index: monetary
+      dims: costs
     
     #This means electricity from PV can be exported.
     carrier_export: electricity 
@@ -36,9 +36,33 @@ techs:
     
     #Feed-in tarriff 
     cost_export:
-        data: 0.059  #Units: €/kWh
-        index: monetary
-        dims: costs
+      data: 0.059  #Units: €/kWh
+      index: monetary
+      dims: costs
+  
+  supply_grid_power:
+    name: "National grid import"
+    color: "#C5ABE3"
+    base_tech: supply
+    carrier_out: electricity
+    
+    #Unlimited energy can be drawn from the grid
+    source_use_max: .inf
+    
+    #Grid connection limit
+    flow_cap_max: 165 #kW
+    
+    #lifetime: 25 #not needed because grid is existing infrastructure
+    #cost_flow_cap: #commented out because we assume all demand is already met with existing infrastructure
+      #data: 15
+      #index: monetary
+      #dims: costs
+
+    #Grid electricity price
+    cost_flow_in:
+      data: 0.32 #Units: €/kWh
+      index: monetary
+      dims: costs
   
   demand_electricity:
     name: "Electrical demand"
@@ -79,29 +103,5 @@ techs:
     #Battery energy cost (75% of total battery cost)
     cost_storage_cap:
       data: 230 #Units: €/kWh
-      index: monetary
-      dims: costs
-  
-  supply_grid_power:
-    name: "National grid import"
-    color: "#C5ABE3"
-    base_tech: supply
-    carrier_out: electricity
-    
-    #Unlimited energy can be drawn from the grid
-    source_use_max: .inf
-    
-    #Grid connection limit
-    flow_cap_max: 165 #kW
-    
-    #lifetime: 25 #not needed because grid is existing infrastructure
-    #cost_flow_cap: #commented out because we assume all demand is already met with existing infrastructure
-        #data: 15
-        #index: monetary
-        #dims: costs
-
-    #Grid electricity price
-    cost_flow_in:
-      data: 0.32 #Units: €/kWh
       index: monetary
       dims: costs

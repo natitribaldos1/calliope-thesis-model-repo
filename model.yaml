@@ -3,8 +3,22 @@ import: # Import other files from paths relative to this file
   - "model_config/locations.yaml"
 
 scenarios:
+  without_transformer: []
+  with_transformer:
+    - transformer_upgrade
 
 overrides:
+  transformer_upgrade:
+    techs:
+      pv:
+        export_max: 1200 #Units: kW
+        cost_flow_cap:
+          data: 920 #Units: €/kWp
+          index: monetary
+          dims: costs
+
+      supply_grid_power:
+        flow_cap_max: 1200 #Units: kW
 
 config:
   init:
@@ -30,16 +44,15 @@ data_definitions:
   bigM: 1e6 
 
   cost_interest_rate:
-    data: 0.10 
+    data: 0.08 
     index: monetary
     dims: costs
 
 data_tables:
   demand:
-    #Includes both XX demand and EV demand
+    #Includes both normal demand and EV demand
     data: data_tables/final_hourly_demand.csv   #units = kW
     rows: timesteps
-    columns: [techs, nodes]
     add_dims:
       parameters: sink_use_equals
 
