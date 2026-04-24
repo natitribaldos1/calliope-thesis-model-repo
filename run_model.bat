@@ -11,5 +11,8 @@ calliope run model.yaml --scenario=without_transformer --save_netcdf="outputs\wi
 echo Running with_transformer scenario...
 calliope run model.yaml --scenario=with_transformer --save_netcdf="outputs\with_transformer.nc"
 
+echo Running grid_only scenario...
+calliope run model.yaml --scenario=grid_only --save_netcdf="outputs\grid_only.nc"
+
 echo All scenarios completed!
 pause

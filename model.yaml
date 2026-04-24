@@ -3,6 +3,8 @@ import: # Import other files from paths relative to this file
   - "model_config/locations.yaml"
 
 scenarios:
+  grid_only:
+    - existing_case
   without_transformer: []
   with_transformer:
     - transformer_upgrade
@@ -19,6 +21,13 @@ overrides:
 
       supply_grid_power:
         flow_cap_max: 1200 #Units: kW
+  existing_case:
+    techs:
+      pv:
+        flow_cap_max: 0
+      battery:
+        flow_cap_max: 0
+        storage_cap_max: 0
 
 config:
   init:
