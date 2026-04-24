@@ -25,7 +25,7 @@ config:
     name: "calliope_thesis_model" # Name of the model
     calliope_version: 0.7.0 # What version of Calliope this model is intended for
     subset:
-      timesteps: ["2019-01-01", "2019-12-31"] # Subset of timesteps   
+      timesteps: ["2015-01-01", "2015-12-31"] # Subset of timesteps
     mode: base # Choices: base, operate, spores
   build:
     ensure_feasibility: true # Switching on unmet demand
@@ -39,38 +39,38 @@ data_definitions:
     data: 1 #Weight = 1 means: objective = monetary cost
     index: monetary
     dims: costs
-      
+
   #This is a very large number used to penalize unmet demand. So the solver will almost never allow unmet demand, unless absolutely necessary.
-  bigM: 1e6 
+  bigM: 1e6
 
   cost_interest_rate:
-    data: 0.08 
+    data: 0.08
     index: monetary
     dims: costs
 
 data_tables:
   demand:
     #Includes both normal demand and EV demand
-    data: data_tables/final_hourly_demand.csv   #units = kW
+    data: data_tables/final_hourly_demand.csv #units = kW
     rows: timesteps
     add_dims:
       parameters: sink_use_equals
 
-  pv_resource: 
+  pv_resource:
     #Source: Renewables.Ninja
     #Parameters Used:
-      #Lat: 49.3356
-      #Long: 8.2199
-      #Dataset: CM-SAF SARAH (Europe)
-      #Capacity(kW): 1
-      #System Loss (fraction): 0.1
-      #Tracking: 1-axis (azimuth)
-      #Tilt: left at 35 but I believe the system ignores it since
-      #Azimuth: 180
+    #Lat: 49.3356
+    #Long: 8.2199
+    #Dataset: CM-SAF SARAH (Europe)
+    #Capacity(kW): 1
+    #System Loss (fraction): 0.1
+    #Tracking: None
+    #Tilt: 35 degrees
+    #Azimuth: 180
     #Units: kW per kW peak (capacity factor)
     #Timestep format needs to be 'yyyy-mm-dd hh:mm:ss'
-    data: data_tables/pv_resource.csv
+    data: data_tables/pv_resource_notracking.csv
     rows: timesteps
     add_dims:
-      parameters: source_use_max 
+      parameters: source_use_max
       techs: pv

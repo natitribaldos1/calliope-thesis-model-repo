@@ -1,12 +1,10 @@
 nodes:
-
   node1:
-
     techs:
       pv:
       battery:
       demand_electricity:
       supply_grid_power:
-    
+
     #Total site area
     available_area: 30000 #units: m²
