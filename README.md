@@ -1,10 +1,58 @@
-# Calliope Thesis Project
+# Calliope Thesis Project: Energy Hub Optimization for Electrified Logistics Depots
 
-This repository contains the energy system model built with Calliope for thesis research. Follow the steps below to set up the project on a new computer and run it independently.
+**A Calliope-based techno-economic model for evaluating PV, battery storage, and EV fleet charging under grid connection constraints**
+
+Master's thesis research: TU Delft / Leiden University | Martin Lüneburg & Natalia Tribaldos. 
 
 ---
+# 1. What this model does
 
-# 1. Install Required Software
+This repository contains an open-source energy system model built with **Calliope** that optimizes behind-the-meter energy infrastructure for commercial logistics depots \ think warehouses or freight hubs with large rooftop areas, an electrifying vehicle fleet, and a limited grid connection.
+The model jointly optimises:
+- **Rooftop PV capacity** (constrained by available roof area)
+- **Battery energy storage (BESS)** sizing (power and energy capacity)
+- _[in the future] Smart EV fleet charging schedules (within dwell-time windows)
+under binding import and export limits imposed by the existing grid connection contract._
+
+The central research question is: **"When does upgrading the grid connection become economically justified compared to maximising local flexibility through PV and PV curtailment, storage, and smart charging?"**
+
+# 2. Motivation 
+
+Logistics companies across Europe are under pressure to electrify their fleets to meet EU CO2 emissions targets for heavy-duty vehicles. Many depots have large rooftop areas well-suited for solar PV, but face two simultaneous constraints:
+
+1. **Limited grid import capacity** \ charging hundreds of kW of electric trucks strains the existing connection
+2. **Limited or zero export capacity** \ excess PV generation cannot be fed into the grid, leading to curtailment
+
+The standard solution is to upgrade the grid connection (a costly, slow, and sometimes administratively difficult process). This model evaluates whether and under what conditions local flexibility can defer or replace that upgrade.
+
+# 3. Related Work   
+
+This model builds on and contributes to the literature on:
+
+- PV curtailment and distribution grid hosting capacity
+- Depot-level EV fleet charging optimization
+- Flexibility vs. grid reinforcement trade-offs
+  
+Key references: Frank et al. (2024), Nunez Munoz et al. (2023), Fatima et al. (2023), Sevilla et al. (2018).
+
+
+# 4. Model Structure  
+
+[will follow] 
+
+# 4. Status (24.04.2026) 
+
+\ Early-stage / work in progress
+
+ - Basic YAML model structure (PV, BESS, grid, demand)
+ - Import and export limits
+ - EV fleet charging profiles (fixed not optimized)
+ - Discrete transformer upgrade decision (work in progress)
+ - Scenario comparison and NPV analysis
+
+# 5. How tu run 
+
+# 6. Install Required Software
 
 ## A. Check if Anaconda Is Already Installed
 
@@ -71,7 +119,7 @@ Sign in with your GitHub account.
 
 ---
 
-# 2. Get the Project Files
+# 7. Get the Project Files
 
 ## Option A (recommended): Clone with GitHub Desktop
 
@@ -89,7 +137,7 @@ Download the repository from GitHub and extract it.
 
 ---
 
-# 3. Create the Conda Environment
+# 8. Create the Conda Environment
 
 Open **Anaconda Prompt** inside the project folder and run:
 
@@ -111,7 +159,7 @@ python -c "import calliope; print(calliope.__version__)"
 
 ---
 
-# 4. Install the Gurobi Solver (Academic License)
+# 9. Install the Gurobi Solver (Academic License)
 
 1. Create an academic account at [https://www.gurobi.com/academia/](https://www.gurobi.com/academia/)
 2. Request a free academic license using your university email.
@@ -139,7 +187,7 @@ python -c "import gurobipy as gp; print(gp.gurobi.version())"
 
 ---
 
-# 5. Open the Project
+# 10. Open the Project
 
 ## In VS Code
 
@@ -157,7 +205,7 @@ Choose:
 
 ---
 
-# 6. Running the Model
+# 11. Running the Model
 
 Typical workflow:
 
@@ -189,7 +237,7 @@ results = model.results
 
 ---
 
-# 7. Updating the Repository
+# 12. Updating the Repository
 
 ## Pull latest changes
 
