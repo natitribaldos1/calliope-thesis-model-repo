@@ -5,22 +5,25 @@ import: # Import other files from paths relative to this file
 scenarios:
   grid_only:
     - existing_case
-  without_transformer: []
+  without_transformer: 
+    - no_upgrade
   with_transformer:
-    - transformer_upgrade
+    - force_upgrade
 
 overrides:
-  transformer_upgrade:
-    techs:
-      pv:
-        export_max: 1200 #Units: kW
-        cost_flow_cap:
-          data: 920 #Units: €/kWp
-          index: monetary
-          dims: costs
 
-      supply_grid_power:
-        flow_cap_max: 1200 #Units: kW
+  force_upgrade:
+    techs:
+      supply_grid_upgrade:
+        purchased_units_min: 1  # forces the optimizer to always buy the upgrade
+
+  no_upgrade:
+    techs:
+      supply_grid_upgrade:
+        purchased_units_max: 0  # forbids the upgrade entirely
+      pv:
+        export_max: 165 #Units: kW
+
   existing_case:
     techs:
       pv:
@@ -28,6 +31,8 @@ overrides:
       battery:
         flow_cap_max: 0
         storage_cap_max: 0
+      supply_grid_upgrade:
+        purchased_units_max: 0  # forbids the upgrade entirely
 
 config:
   init:
@@ -36,6 +41,8 @@ config:
     subset:
       timesteps: ["2015-01-01", "2015-12-31"] # Subset of timesteps
     mode: base # Choices: base, operate, spores
+    extra_math: ["milp"]  # enables MILP (needed for one time purchase optimization)
+
   build:
     ensure_feasibility: true # Switching on unmet demand
     backend: gurobi
@@ -53,7 +60,7 @@ data_definitions:
   bigM: 1e6
 
   cost_interest_rate:
-    data: 0.08
+    data: 0.05
     index: monetary
     dims: costs
 

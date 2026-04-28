@@ -12,7 +12,7 @@ techs:
     #Set to 1 because the pv_resource data already accounts for system losses.
     flow_out_parasitic_eff: 1
 
-    #Max PV build allowed (to avoid strictre laws)
+    #Max PV build allowed (to avoid stricter laws)
     flow_cap_max: 999 #Units: kWp
 
     #Roofspace area
@@ -31,7 +31,8 @@ techs:
     carrier_export: electricity
 
     #Grid connection limit
-    export_max: 165 #Units: kW
+    export_max: 1200 #Units: kW
+    #This should automatically be restricted by flow_cap_max from supply_grid_power if transformer upgrade is not built.  
 
     #Feed-in tarriff
     cost_export:
@@ -60,6 +61,28 @@ techs:
     #Grid electricity price
     cost_flow_in:
       data: 0.32 #Units: €/kWh
+      index: monetary
+      dims: costs
+  
+  supply_grid_upgrade:
+    name: "Grid connection upgrade (additional capacity)"
+    base_tech: supply
+    carrier_out: electricity
+    source_use_max: .inf
+    cap_method: integer
+    purchased_units_max: 1
+    flow_cap_per_unit: 1035   # 1200 - 165 = 1035 kW extra
+    cost_flow_in:
+      data: 0.32
+      index: monetary
+      dims: costs
+    cost_purchase:
+      data: 210000             # total upgrade cost in €
+      index: monetary
+      dims: costs
+    lifetime: 25              # years — from Frank et al.(2025)
+    cost_interest_rate:
+      data: 0.05              # 5% discount rate
       index: monetary
       dims: costs
 

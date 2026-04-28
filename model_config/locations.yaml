@@ -5,6 +5,7 @@ nodes:
       battery:
       demand_electricity:
       supply_grid_power:
+      supply_grid_upgrade:
 
     #Total site area
     available_area: 30000 #units: m²
