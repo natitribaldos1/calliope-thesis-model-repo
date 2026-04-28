@@ -6,7 +6,7 @@ nodes:
       demand_electricity:
       supply_grid_power:
       supply_grid_upgrade:
-      curtailment_sink:
+      #curtailment_sink:
 
     #Total site area
     available_area: 30000 #units: m²

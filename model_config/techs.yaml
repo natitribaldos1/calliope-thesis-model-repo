@@ -27,7 +27,7 @@ techs:
     #This should automatically be restricted by flow_cap_max from supply_grid_power if transformer upgrade is not built.  
     #Feed-in tarriff
     cost_export:
-      data: 0.059 #Units: €/kWh
+      data: -0.059 #Units: €/kWh
       index: monetary
       dims: costs
 
@@ -107,11 +107,11 @@ techs:
       index: monetary
       dims: costs
 
-  curtailment_sink:
-    base_tech: demand
-    carrier_in: electricity
-    sink_use_max: .inf       # absorbs any amount
-    cost_flow_in:            # zero cost — or small penalty if you want to discourage it
-      data: 0
-      index: monetary
-      dims: costs
+  # curtailment_sink:
+  #   base_tech: demand
+  #   carrier_in: electricity
+  #   sink_use_max: .inf       # absorbs any amount
+  #   cost_flow_in:            # zero cost — or small penalty if you want to discourage it
+  #     data: 0 #Units: €/kWh
+  #     index: monetary
+  #     dims: costs
